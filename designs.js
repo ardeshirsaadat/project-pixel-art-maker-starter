@@ -1,30 +1,31 @@
-// Select color input
-// Select size input
-
-// When size is submitted by the user, call makeGrid()
 const tableElement = document.getElementById("pixelCanvas");
-let form = document.querySelector("#sizePicker");
-form.addEventListener('submit', makeGrid)
+let formElement = document.querySelector("#sizePicker");
+// When size is submitted by the user, call makeGrid()
+formElement.addEventListener("submit", makeGrid);
 function makeGrid(event) {
-    event.preventDefault()
+    event.preventDefault();
+    // Delete <table> element's children
     while(tableElement.childElementCount !== 0){ 
-        tableElement.removeChild(tableElement.firstChild)
+        tableElement.removeChild(tableElement.firstChild);
     } 
+    // Obtain height and width values from boxes
     const heightValue = document.getElementById("inputHeight").value;
     const widthValue = document.getElementById("inputWidth").value;
+    // Create individual grids
     for (let i = 1;i <= Number(heightValue); i++){
-        var newTrElement = document.createElement("TR");
+        let newTrElement = document.createElement("TR");
         for (let j = 1; j <= Number(widthValue); j++){
-            var newTdElement = document.createElement("TD");
+            let newTdElement = document.createElement("TD");
+            // Create class for <td> element based off their rows and columns
             newTdElement.classList.add("r"+i+"c"+j);
             newTrElement.appendChild(newTdElement);
         };
         tableElement.appendChild(newTrElement);
     };
-    
-    var pickColor = document.querySelector("#colorPicker")
-    tableElement.addEventListener('click',function(event){
-        event.target.style.background = pickColor.value
-    })
-}
-
+};
+//  Select color input
+// Add background color when a grid is clicked
+let pickColor = document.querySelector("#colorPicker");
+tableElement.addEventListener("click",function(event){
+    event.target.style.background = pickColor.value;
+    });
